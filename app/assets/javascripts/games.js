@@ -50,7 +50,7 @@ function attachListeners() {
       method: "GET",
       success: function(data) {
       	$("#games").empty();
-        data.games.forEach(function(el) {
+        data.forEach(function(el) {
         var id = el.id
         var string = '<a class="show-link" href="games/' + id + '">' +  id + "</a><br>"
         $("#games").append(string)
