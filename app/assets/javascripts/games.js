@@ -1,4 +1,5 @@
 var turn = 0;
+var currentGame = 0
 var board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 const winCombinations = [
 
@@ -29,6 +30,45 @@ function attachListeners() {
 	$(".col.s4").on("click", function(event){
 		doTurn(event)
 	});
+
+	$('#save').on('click', function(event){
+		if (currentGame === 0) {
+			$.ajax({
+				url: "/games",
+				method: "POST",
+				data: {state: board},
+				error: function(xhr, textStatus, errorThrown){
+	       			alert('request failed');
+	    		}
+			})
+		}
+	});
+	
+  $("#previous").on('click', function(){
+    $.ajax({
+      url: "/games",
+      method: "GET",
+      success: function(data) {
+      	$("#games").empty();
+        data.games.forEach(function(el) {
+        var id = el.id
+        var string = '<a class="show-link" href="games/' + id + '">' +  id + "</a><br>"
+        $("#games").append(string)
+        })
+      }
+    })
+   });
+
+  // $('body').on('click', '.show-link', function(ev) {
+  // 	ev.preventDefault();
+  // 	$.ajax({
+  // 		url: "/games/" + this.text 
+  // 	}).then(function(response) {
+  // 		response.state.forEach(function(el, index){
+  // 			$(`td#${index}`).html(el);
+  // 		})
+  // 	})
+  // })
 
 }
 
