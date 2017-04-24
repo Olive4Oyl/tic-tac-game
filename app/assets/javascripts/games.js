@@ -90,7 +90,6 @@ function attachListeners() {
 function doTurn(event){
 	updateState(event);
 	turn += 1;
-	console.log(turn)
 	checkWinner();
 }
 
