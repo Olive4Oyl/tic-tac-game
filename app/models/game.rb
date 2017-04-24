@@ -1,3 +1,3 @@
-class Game < ApplicationRecord
+class Game < ActiveRecord::Base
   serialize :state
 end

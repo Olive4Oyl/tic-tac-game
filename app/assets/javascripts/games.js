@@ -1,5 +1,4 @@
 var turn = 0;
-var currentGame = 0
 var board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
 const winCombinations = [
 
@@ -14,6 +13,7 @@ const winCombinations = [
 
 ]
 
+
 $(function() {
   attachListeners();
 })
@@ -26,23 +26,25 @@ function player(){
 	}
 }
 
+
 function attachListeners() {
-	$(".col.s4").on("click", function(event){
+	$('.col.s4').on('click', function(event){
 		doTurn(event)
 	});
 
 	$('#save').on('click', function(event){
-		if (currentGame === 0) {
-			$.ajax({
+		$.ajax({
 				url: "/games",
 				method: "POST",
-				data: {state: board},
-				error: function(xhr, textStatus, errorThrown){
-	       			alert('request failed');
-	    		}
+				data: {state: board}
 			})
-		}
 	});
+
+	$('#clear').on('click', function(){
+  		window.location.reload()
+
+  	});
+
 	
   $("#previous").on('click', function(){
     $.ajax({
@@ -59,24 +61,39 @@ function attachListeners() {
     })
    });
 
-  // $('body').on('click', '.show-link', function(ev) {
-  // 	ev.preventDefault();
-  // 	$.ajax({
-  // 		url: "/games/" + this.text 
-  // 	}).then(function(response) {
-  // 		response.state.forEach(function(el, index){
-  // 			$(`td#${index}`).html(el);
-  // 		})
-  // 	})
-  // })
+  $('body').on('click', '.show-link', function(ev) {
+  	ev.preventDefault();
+  	$.ajax({
+  		url: "/games/" + this.text 
+  	}).then(function(response) {
+  		string = JSON.stringify(response['state']);
+  		prevGame = JSON.parse(string);
+      	showGame(prevGame);
+  	})
+  })
 
+  function showGame(game){
+	  $('button#0').text(game[0]);
+	  $('button#1').text(game[1]);
+	  $('button#2').text(game[2]);
+	  $('button#3').text(game[3]);
+	  $('button#4').text(game[4]);
+	  $('button#5').text(game[5]);
+	  $('button#6').text(game[6]);
+	  $('button#7').text(game[7]);
+	  $('button#8').text(game[8]);
+  		turn = game.length;
+	}
 }
+
 
 function doTurn(event){
 	updateState(event);
 	turn += 1;
+	console.log(turn)
 	checkWinner();
 }
+
 
 function updateState(arg){
 	var token = player();
@@ -107,7 +124,7 @@ function checkWinner(){
 };
 
 function message(arg){
-	$("#message-text").html(arg);
+	$('#message-text').html(arg);
 	setTimeout(function() { clear(); }, 800);
 }
 
@@ -115,7 +132,7 @@ function clear() {
   turn = 0;
   board = ["","","","","","","","",""];;
   for(var i = 0; i < board.length; i++) {
-    $("button").html("");
+    window.location.reload();
   }
   $("#message-text").html(""); 
 }
