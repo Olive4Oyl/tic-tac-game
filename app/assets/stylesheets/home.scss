@@ -6,7 +6,7 @@
   width: 45%;
   height: 35%;
   margin-left: 25%;
-  margin-top: 15%;
+  margin-top: 5%;
 }
 
 #rim {
@@ -14,11 +14,57 @@
 }
 
 .message {
-  margin-left: 30%;
+  margin-left: 35%;
   width: 25%;
   height: 35%;
 }
 
-#message-text {
-	text-align: center;
+.word {
+  margin-left: 33%;
+  width: 30%;
+  height: 35%;
 }
+
+#message-text, .name{
+	text-align: center;
+  text-transform: uppercase;
+}
+
+.word {
+    -webkit-animation: word-animation #{random(1000) + 2000}ms infinite alternate cubic-bezier(.17,.67,.83,.67);
+    color: #dd2c00;
+
+    @-webkit-keyframes word-animation {
+      0% {
+          opacity: .6;
+          /*-webkit-transform: translate3d(0,-5px,0);*/
+      }
+      20% {
+          opacity: .2;
+         /* -webkit-transform: translate3d(0,0,0);*/
+      }
+      40% {
+          opacity: .2;
+          /*-webkit-transform: translate3d(0,5px,0);*/
+      }
+    }
+
+}
+
+#save {
+	margin-left: 5%; 
+}
+
+#previous {
+	margin-left: 5%;
+}
+
+#clear {
+  margin-left: 5%;
+}
+
+#games {
+	margin-left: 30%;
+  	width: 40%;
+  	text-align: center;
+} 
